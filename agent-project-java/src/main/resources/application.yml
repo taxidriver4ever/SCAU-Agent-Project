@@ -1,0 +1,63 @@
+spring:
+  # mysql????
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/agent-database
+  # redis????
+  data:
+    redis:
+      # ??????
+      host: localhost           # Redis?????
+      port: 6379
+      database: 1
+      # ?????
+      lettuce:
+        pool:
+          max-active: 8        # ?????
+          max-idle: 8          # ???????
+          min-idle: 0          # ???????
+          max-wait: -1ms       # ??????????(-1??????)
+      timeout: 2000ms          # ??????
+  # rabbitmq????
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    # 虚拟主机，默认/
+    virtual-host: /
+    # 开启确认模式
+    publisher-confirm-type: correlated
+    # 开启返回模式
+    publisher-returns: true
+    listener:
+      simple:
+        # 消费者最小数量
+        concurrency: 5
+        # 消费者最大数量
+        max-concurrency: 10
+        # 每次从队列获取的消息数量
+        prefetch: 1
+        # 消费失败重试
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000ms
+        acknowledge-mode: manual
+
+  mail:
+    host: smtp.qq.com            # QQ邮箱SMTP服务器地址
+    port: 465                    # SSL端口
+    username: 3887768494@qq.com  # 你的QQ邮箱地址
+    password: vvhofhzyeriwccga   # 邮箱授权码（不是QQ密码）
+    protocol: smtps              # 使用SMTP over SSL
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: false         # 启用SSL
+            required: false
+        debug: false              # 开启调试模式（生产环境应关闭）# 开启调试模式（生产环境应关闭）

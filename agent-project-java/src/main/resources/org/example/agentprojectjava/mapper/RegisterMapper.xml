@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.agentprojectjava.mapper.RegisterMapper">
+    <insert id="register">
+        insert into myuser
+        (userName,userPassword,userEmail,createdAt,updatedAt,status)
+        values
+        (#{userName},#{userPassword},#{userEmail},NOW(),NOW(),0);
+    </insert>
+    <select id="checkUser" resultType="long">
+        select id from myuser
+        <where>
+            userName = #{userName}
+            or
+            userEmail = #{userEmail}
+        </where>
+    </select>
+</mapper>

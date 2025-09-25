@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.agentprojectjava.mapper.ChatWithAiMapper">
+    <insert id="SaveHistoryMessage">
+        insert into user_history_message
+        (userId,createTime,historyMessage,sessionId,status,avatar)
+        values
+        (#{userId},#{createTime},#{historyMessage},#{sessionId},#{status},#{avatar})
+    </insert>
+    <select id="getHistoryMessages" resultType="org.example.agentprojectjava.pojo.HistoryMessage">
+        select createTime,historyMessage,status,avatar from user_history_message
+        <where>
+            sessionId = #{sessionId}
+        </where>
+        order by createTime
+    </select>
+    <delete id="DeleteHistoryMessage">
+        DELETE FROM user_history_message
+        <where>
+            sessionId = #{sessionId}
+        </where>
+    </delete>
+    <select id="SearchHistoryId" resultType="integer">
+        select id from user_history_message
+        <where>
+            sessionId = #{sessionId}
+        </where>
+    </select>
+</mapper>
